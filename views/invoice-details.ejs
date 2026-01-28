@@ -1,0 +1,65 @@
+<% layout('layout', { title: 'Detalhes do Invoice - Financeiro Invoices' }) %>
+<div class="back-button mb-3">
+  <a href="/" class="btn btn-outline-secondary">
+    <i class="fas fa-arrow-left"></i> Voltar
+  </a>
+</div>
+<h2 class="page-title">Detalhes do Invoice #<%= invoice.id %></h2>
+<div class="invoice-details bg-white rounded-3 p-3 p-md-4 mb-4 shadow-sm">
+  <h3 class="mb-4" style="color: var(--primary)"><i class="fas fa-file-invoice"></i> Informações do Invoice</h3>
+  <div class="row g-2">
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">ID:</strong>
+      <div class="mb-2"><%= invoice.id %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Nome:</strong>
+      <div class="mb-2"><%= usuario.nome %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">CPF:</strong>
+      <div class="mb-2"><%= usuario.cpf %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Email:</strong>
+      <div class="mb-2"><%= invoice.email %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Gateway:</strong>
+      <div class="mb-2"><%= invoice.gateway %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Gateway ID/TX ID:</strong>
+      <div class="mb-2"><%= invoice.invoice_gateway_id || '-' %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Valor:</strong>
+      <div class="mb-2">R$ <%= parseFloat(invoice.valor || 0).toFixed(2) %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Status:</strong>
+      <div class="mb-2">
+        <span class="badge bg-<%= invoice.status === 'PAGO' ? 'success' : invoice.status === 'AGUARDANDO_PAGAMENTO' ? 'warning' : 'danger' %>">
+          <%= invoice.status %>
+        </span>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Data de Criação:</strong>
+      <div class="mb-2"><%= formatDate(invoice.createdAt) %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Data de Pagamento:</strong>
+      <div class="mb-2"><%= formatDate(invoice.data_pagamento) %></div>
+    </div>
+    <div class="col-12 col-md-6">
+      <strong class="text-secondary">Data do Crédito:</strong>
+      <div class="mb-2"><%= invoice.status === 'PAGO' ? formatDate(invoice.updatedAt) : '-' %></div>
+    </div>
+    <div class="col-12">
+      <strong class="text-secondary">QR Text:</strong>
+      <div class="mb-2" style="font-size: 12px; word-break: break-all;"><%= invoice.qr_text || '-' %></div>
+    </div>
+  </div>
+</div>
+
