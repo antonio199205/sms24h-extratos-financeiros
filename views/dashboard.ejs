@@ -126,7 +126,7 @@
 <body>
   <div class="row g-0" style="min-height: 100vh;">
     <!-- Sidebar -->
-    <div class="col-md-3 col-lg-2 sidebar">
+    <div class="col-md-3 col-lg-2 sidebar d-none d-md-block d-none d-md-block">
       <div class="brand">
         <i class="fas fa-dollar-sign"></i> Financeiro
       </div>
@@ -142,6 +142,7 @@
 
     <!-- Main Content -->
     <div class="col-md-9 col-lg-10 main-content">
+        
       <!-- Top Bar -->
       <div class="top-bar">
         <div class="search-form">
@@ -152,7 +153,7 @@
             </button>
           </form>
         </div>
-        <div class="user-info">
+        <div class="user-info d-none d-md-block">
           <div>
             <small class="text-muted">Bem-vindo</small>
             <div class="fw-bold"><%= user.nome %></div>

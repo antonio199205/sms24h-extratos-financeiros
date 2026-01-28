@@ -228,13 +228,17 @@
         box-shadow: none;
         border: 1px solid #ddd;
       }
+      .print-keep {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+      }
     }
   </style>
 </head>
 <body>
   <div class="row g-0" style="min-height: 100vh;">
     <!-- Sidebar -->
-    <div class="col-md-3 col-lg-2 sidebar">
+    <div class="col-md-3 col-lg-2 sidebar d-none d-md-block">
       <div class="brand">
         <i class="fas fa-dollar-sign"></i> Financeiro
       </div>
@@ -258,30 +262,31 @@
       </div>
 
       <!-- Search Info -->
-      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 0.5rem;">
-        <h2 class="page-title" style="margin-bottom: 0;">
-          <i class="fas fa-search"></i> Resultados de Busca
-        </h2>
-        <button class="btn btn-primary btn-sm" onclick="window.print()" style="margin-left: 10px;">
-          <i class="fas fa-print"></i> IMPRIMIR TODO HISTÓRICO
-        </button>
-      </div>
-      <div class="search-info">
-        <strong>Busca por <%= tipo_busca %>:</strong> <%= searchTerm %> 
-        <% if (tipo_busca === 'TX_ID' && usuario && usuario.cpf) { %>
-          | <strong>CPF:</strong> <%= usuario.cpf %>
-        <% } %>
-        <% if(alerta){ %>
-          <div class="alert alert-warning mt-2" role="alert">
-            <i class="fas fa-exclamation-triangle"></i><strong>Usuário com suspeita de fraude</strong>.
+      <div class="print-keep">
+        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 0.5rem;">
+          <h2 class="page-title" style="margin-bottom: 0;">
+            <i class="fas fa-search"></i> Resultados de Busca
+          </h2>
+          <button class="btn btn-primary btn-sm" onclick="window.print()" style="margin-left: 10px;">
+            <i class="fas fa-print"></i> IMPRIMIR TODO HISTÓRICO
+          </button>
         </div>
-        <% } %>
-        <% if (invoices && invoices.length) { %>
-          | <strong><%= invoices.length %> invoice(s) encontrado(s)</strong>
-        <% } %>
-          | <strong> Saldo Atual: R$ <%= usuario.credito || '-' %></strong>
+        <div class="search-info">
+          <strong>Busca por <%= tipo_busca %>:</strong> <%= searchTerm %> 
+          <% if (tipo_busca === 'TX_ID' && usuario && usuario.cpf) { %>
+            | <strong>CPF:</strong> <%= usuario.cpf %>
+          <% } %>
+          <% if(alerta){ %>
+            <div class="alert alert-warning mt-2" role="alert">
+              <i class="fas fa-exclamation-triangle"></i><strong>Usuário com suspeita de fraude</strong>.
+            </div>
+          <% } %>
+          <% if (invoices && invoices.length) { %>
+            | <strong><%= invoices.length %> invoice(s) encontrado(s)</strong>
+          <% } %>
+            | <strong> Saldo Atual: R$ <%= usuario.credito || '-' %></strong>
+        </div>
       </div>
-
       <!-- Invoices por Data -->
       <% if (invoices && invoices.length > 0) { %>
         <% invoices.forEach((invoice, idx) => { %>

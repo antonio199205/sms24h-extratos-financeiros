@@ -176,7 +176,7 @@ exports.search = async (req, res) => {
     const ativacoes_com_date = await Promise.all(ativacoes.map(async (ativacao) => ({
         ...ativacao.dataValues,
         sortDate: ativacao.initial_time,
-        last_code: (process.env.NODE_ENV === 'development') ? await ativacao.getLastSmsCode() : undefined,
+        last_code: (process.env.NODE_ENV === 'development') ?  undefined : await ativacao.getLastSmsCode(),
     })));
     const invoices_com_ativacoes = groupAtivacoesIntoInvoicesByDate({
       usuario,
