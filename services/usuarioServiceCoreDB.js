@@ -41,11 +41,11 @@ class UsuarioService {
       let whereClause = {};
       
       if (campo === 'email') {
-        whereClause = { email: valor };
+        whereClause = { email: valor.trim() };
       } else if (campo === 'api_key') {
-        whereClause = { api_key: valor };
+        whereClause = { api_key: valor.trim() };
       } else if (campo === 'cpf') {
-        whereClause = { cpf: valor };
+        whereClause = { cpf: valor.replaceAll(".","").replaceAll("-","") };
       } else if (campo === 'id') {
         whereClause = { id: parseInt(valor) };
       }

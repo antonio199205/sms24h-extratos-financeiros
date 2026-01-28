@@ -21,6 +21,8 @@
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 15px;
   }
   .sidebar .nav-link {
     color: rgba(255, 255, 255, 0.8);
@@ -31,6 +33,31 @@
   .sidebar .nav-link:hover, .sidebar .nav-link.active {
     color: white;
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  /* Offcanvas Mobile Menu Styles */
+  .offcanvas-body .nav-link {
+    padding: 1rem 1.5rem;
+    color: #212529;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    transition: all 0.3s;
+  }
+  .offcanvas-body .nav-link:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+    padding-left: 2rem;
+  }
+  .offcanvas-body .nav-link.active {
+    background-color: rgba(102, 126, 234, 0.1);
+    color: var(--primary);
+    border-left: 4px solid var(--primary);
+  }
+  .offcanvas-body .nav-link i {
+    width: 20px;
+    margin-right: 10px;
+  }
+  .offcanvas-body .nav-link.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.05);
+    color: #dc3545 !important;
   }
   .main-content {
     padding: 30px;
@@ -223,12 +250,12 @@
   }
   @media (max-width: 767px) {
     .sidebar {
-      min-height: auto;
-      padding: 10px 10px 20px 10px;
-      position: static;
+      display: none; /* Hide desktop sidebar on mobile */
     }
     .main-content {
       padding: 10px;
+      margin-left: 0 !important;
+      width: 100%;
     }
     .top-bar {
       flex-direction: column;

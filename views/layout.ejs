@@ -10,7 +10,7 @@
 </head>
 <body>
   <div class="row g-0" style="min-height: 100vh;">
-    <%- include('partials/sidebar', { activeMenu: typeof activeMenu !== 'undefined' ? activeMenu : '' }) %>
+    <%- include('partials/sidebar', { activeMenu: typeof activeMenu !== 'undefined' ? activeMenu : '', user: typeof user !== 'undefined' ? user : {} }) %>
     <div class="col-md-9 col-lg-10 col-12 main-content">
       <%- body %>
     </div>

@@ -48,6 +48,35 @@ class ActivationServiceBackups {
     }
   }
 
+  // Buscar activations por api_key com paginação
+  async getActivationsByApiKeyPaginated(apiKey, limit = 20, offset = 0) {
+    try {
+      const { count, rows } = await ActivationBackups.findAndCountAll({
+        where: { api_key: apiKey },
+        order: [['initial_time', 'DESC']],
+        limit,
+        offset,
+      });
+      return { activations: rows, total: count };
+    } catch (error) {
+      console.error('Erro ao buscar activations paginadas por api_key no backups:', error);
+      throw error;
+    }
+  }
+
+  // Contar activations por api_key
+  async countActivationsByApiKey(apiKey) {
+    try {
+      const count = await ActivationBackups.count({
+        where: { api_key: apiKey }
+      });
+      return count;
+    } catch (error) {
+      console.error('Erro ao contar activations por api_key no backups:', error);
+      throw error;
+    }
+  }
+
 }
 
 module.exports = new ActivationServiceBackups();

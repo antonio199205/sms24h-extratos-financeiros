@@ -1,5 +1,5 @@
-<!-- Sidebar Component -->
-<div class="col-md-3 col-lg-2 sidebar d-none d-md-block">
+<!-- Sidebar para Desktop -->
+<div class="col-md-3 col-lg-2 d-none d-md-block sidebar">
   <div class="brand">
     <i class="fas fa-dollar-sign"></i> Financeiro
   </div>
@@ -10,8 +10,43 @@
     <a href="/relatorio-numero" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'relatorio-numero') ? 'active' : '' %>">
       <i class="fas fa-phone"></i> Relatório por Número
     </a>
+    <a href="/usuario" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'usuario') ? 'active' : '' %>">
+      <i class="fas fa-user"></i> Buscar Usuário
+    </a>
     <a href="/logout" class="nav-link mt-auto">
       <i class="fas fa-sign-out-alt"></i> Logout
     </a>
   </nav>
+</div>
+
+<!-- Offcanvas Sidebar para Mobile -->
+<div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="sidebarMenuLabel">
+      <i class="fas fa-dollar-sign"></i> Financeiro SMS24H
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body p-0">
+    <nav class="nav flex-column">
+      <a href="/" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'dashboard') ? 'active' : '' %>">
+        <i class="fas fa-home"></i> Dashboard
+      </a>
+      <a href="/relatorio-numero" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'relatorio-numero') ? 'active' : '' %>">
+        <i class="fas fa-phone"></i> Relatório por Número
+      </a>
+      <a href="/usuario" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'usuario') ? 'active' : '' %>">
+        <i class="fas fa-user"></i> Buscar Usuário
+      </a>
+      <a href="/logout" class="nav-link border-top mt-3 text-danger">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </nav>
+    <% if (typeof user !== 'undefined' && user) { %>
+      <div class="p-3 mt-3 border-top bg-light">
+        <p class="text-muted small mb-1">Usuário:</p>
+        <p class="fw-bold mb-0"><%= user.nome || user.username || 'N/A' %></p>
+      </div>
+    <% } %>
+  </div>
 </div>

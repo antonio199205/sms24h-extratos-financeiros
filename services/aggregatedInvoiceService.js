@@ -95,6 +95,67 @@ async getInvoiceByTxId(txId) {
     }
   }
 
+  // Buscar recargas do usuário por ID
+  async getRecargasByUsuarioId(usuarioId, limit = 10) {
+    try {
+      return await invoiceServiceCoreDB.getInvoicesByUserId(usuarioId, limit);
+    } catch (error) {
+      console.error('Erro ao buscar recargas por usuário:', error);
+      throw error;
+    }
+  }
+
+  // Buscar ativações por api_key com paginação (agregando dos dois databases)
+  async getActivationsByApiKeyPaginated(apiKey, limit = 20, offset = 0) {
+    try {
+      // 1. Primeiro, obter contagens totais (sem buscar dados)
+      const [countCore, countBackup] = await Promise.all([
+        activationServiceCoreDB.countActivationsByApiKey(apiKey),
+        activationServiceBackups.countActivationsByApiKey(apiKey),
+      ]);
+      
+      const totalCount = countCore + countBackup;
+      
+      // 2. Buscar primeiro do CoreDB
+      const coreResult = await activationServiceCoreDB.getActivationsByApiKeyPaginated(
+        apiKey, 
+        limit, 
+        offset
+      );
+      
+      let allActivations = [...coreResult.activations];
+      
+      // 3. Se pegou menos que o limite do CoreDB, buscar do Backup para completar
+      if (allActivations.length < limit) {
+        const remaining = limit - allActivations.length;
+        const backupOffset = Math.max(0, offset - countCore);
+        
+        const backupResult = await activationServiceBackups.getActivationsByApiKeyPaginated(
+          apiKey,
+          remaining,
+          backupOffset
+        );
+        
+        allActivations = [...allActivations, ...backupResult.activations];
+      }
+      
+      // 4. Ordenar o resultado final por data
+      allActivations.sort((a, b) => {
+        const dateA = new Date(a.initial_time || a.initial_date);
+        const dateB = new Date(b.initial_time || b.initial_date);
+        return dateB - dateA;
+      });
+      
+      return {
+        activations: allActivations,
+        total: totalCount,
+      };
+    } catch (error) {
+      console.error('Erro ao buscar activations paginadas:', error);
+      throw error;
+    }
+  }
+
   // Buscar um invoice e seus activations dos dois databases
   async getInvoiceDetails(invoiceId) {
     try {

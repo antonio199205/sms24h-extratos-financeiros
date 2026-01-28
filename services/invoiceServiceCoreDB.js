@@ -67,12 +67,18 @@ class InvoiceServiceCoreDB {
     }
   }
   // Buscar invoices por usuario_id
-  async getInvoicesByUserId(userId) {
+  async getInvoicesByUserId(userId, limit = null) {
     try {
-      return await InvoiceCoreDB.findAll({
+      const options = {
         where: { usuario_id: userId },
         order: [['createdAt', 'DESC']],
-      });
+      };
+      
+      if (limit) {
+        options.limit = limit;
+      }
+      
+      return await InvoiceCoreDB.findAll(options);
     } catch (error) {
       console.error('Erro ao buscar invoices por usuario_id no coredb:', error);
       throw error;

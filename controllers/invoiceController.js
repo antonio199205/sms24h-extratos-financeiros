@@ -253,10 +253,16 @@ exports.relatorioNumero = async (req, res) => {
 
 exports.usuarioDetalhes = async (req, res) => {
   try {
-    const { id, email, api_key, cpf } = req.query;
+    const { id, email, api_key, cpf, pageAtivacoes, limitAtivacoes } = req.query;
     let usuario = null;
     let busca = null;
-
+    let recargas = [];
+    let ativacoesData = { activations: [], total: 0 };
+    
+    const page = parseInt(pageAtivacoes) || 1;
+    const limit = parseInt(limitAtivacoes) || 20;
+    const offset = (page - 1) * limit;
+    
     if (id) {
       usuario = await usuarioService.buscarUsuario('id', id);
       busca = { tipo: 'ID', valor: id };
@@ -271,11 +277,31 @@ exports.usuarioDetalhes = async (req, res) => {
       busca = { tipo: 'CPF', valor: cpf };
     }
 
+    // Se encontrou o usuário, buscar histórico de recargas e ativações
+    if (usuario && usuario.id) {
+      recargas = await aggregatedInvoiceService.getRecargasByUsuarioId(usuario.id, 20);
+      
+      // Buscar ativações com paginação
+      if (usuario.api_key) {
+        ativacoesData = await aggregatedInvoiceService.getActivationsByApiKeyPaginated(
+          usuario.api_key,
+          limit,
+          offset
+        );
+      }
+    }
+
     res.render('usuario', {
       user: req.user,
       usuario: usuario,
       busca: busca,
-      formatDate
+      recargas: recargas,
+      ativacoes: ativacoesData.activations,
+      totalAtivacoes: ativacoesData.total,
+      currentPageAtivacoes: page,
+      limitAtivacoes: limit,
+      formatDate,
+      activeMenu: 'usuario'
     });
   } catch (error) {
     console.error('Erro ao buscar usuário:', error);
