@@ -75,6 +75,26 @@ async getInvoiceByTxId(txId) {
       throw error;
     }
   }
+  
+  // Buscar activations por número de telefone
+  async getActivationsByNumber(numero) {
+    try {
+      return await activationServiceCoreDB.getActivationsByNumber(numero);
+    } catch (error) {
+      console.error('Erro ao buscar activations por número (CoreDB):', error);
+      throw error;
+    }
+  }
+
+  async getActivationsByNumberBackup(numero) {
+    try {
+      return await activationServiceBackups.getActivationsByNumber(numero);
+    } catch (error) {
+      console.error('Erro ao buscar activations por número (Backups):', error);
+      throw error;
+    }
+  }
+
   // Buscar um invoice e seus activations dos dois databases
   async getInvoiceDetails(invoiceId) {
     try {

@@ -212,3 +212,41 @@ exports.invoiceDetails = async (req, res) => {
     res.redirect('/');
   }
 };
+
+exports.relatorioNumero = async (req, res) => {
+  try {
+    const { numero } = req.query;
+    let activations = [];
+
+    if (numero && numero.trim() !== '') {
+      const activationsCore = await aggregatedInvoiceService.getActivationsByNumber(numero.trim());
+      const activationsBackup = await aggregatedInvoiceService.getActivationsByNumberBackup(numero.trim());
+      
+      const allActivations = [...activationsCore, ...activationsBackup];
+      
+      // Enriquecer com dados do usuário e último código SMS
+      activations = await Promise.all(allActivations.map(async (activation) => {
+        const usuario = await usuarioService.getUsuarioByApiKey(activation.api_key);
+        const lastCode = await activation.getLastSmsCode();
+        
+        return {
+          ...activation.dataValues,
+          usuario: usuario || {},
+          last_code: lastCode
+        };
+      }));
+    }
+
+    res.render('relatorio-numero', { 
+      user: req.user, 
+      numero: numero || '', 
+      activations,
+      formatDate,
+      activeMenu: 'relatorio-numero'
+    });
+  } catch (error) {
+    console.error('Erro ao buscar relatório por número:', error);
+    req.flash('error_msg', 'Erro ao buscar relatório por número');
+    res.redirect('/');
+  }
+};

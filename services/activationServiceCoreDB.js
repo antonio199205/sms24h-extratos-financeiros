@@ -35,6 +35,19 @@ class ActivationServiceCoreDB {
     }
   }
 
+  // Buscar activations por número de telefone
+  async getActivationsByNumber(numero) {
+    try {
+      return await ActivationCoreDB.findAll({
+        where: { chip_number: numero },
+        order: [['initial_time', 'DESC']],
+      });
+    } catch (error) {
+      console.error('Erro ao buscar activations por número no coredb:', error);
+      throw error;
+    }
+  }
+
 }
 
 module.exports = new ActivationServiceCoreDB();

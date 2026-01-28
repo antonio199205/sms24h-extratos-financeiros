@@ -35,6 +35,19 @@ class ActivationServiceBackups {
     }
   }
 
+  // Buscar activations por número de telefone
+  async getActivationsByNumber(numero) {
+    try {
+      return await ActivationBackups.findAll({
+        where: { chip_number: numero },
+        order: [['initial_time', 'DESC']],
+      });
+    } catch (error) {
+      console.error('Erro ao buscar activations por número no backups:', error);
+      throw error;
+    }
+  }
+
 }
 
 module.exports = new ActivationServiceBackups();

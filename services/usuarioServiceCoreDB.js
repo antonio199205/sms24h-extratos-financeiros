@@ -25,6 +25,16 @@ class UsuarioService {
       throw error;
     }
   }
+
+  async getUsuarioByApiKey(apiKey) {
+    try {
+      const usuario = await UsuarioCoreDB.findOne({ where: { api_key: apiKey } });
+      return usuario;
+    } catch (error) {
+      console.error('Erro ao pesquisar usuario por api_key:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = new UsuarioService();
