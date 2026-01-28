@@ -1,0 +1,298 @@
+<!-- Styles Component - Estilos globais e componentes -->
+<style>
+  :root {
+    --primary: #667eea;
+    --secondary: #764ba2;
+  }
+  body {
+    background-color: #f5f7fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  .sidebar {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .sidebar .brand {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+  .sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: all 0.3s;
+  }
+  .sidebar .nav-link:hover, .sidebar .nav-link.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .main-content {
+    padding: 30px;
+  }
+  .top-bar {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  .search-form {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    max-width: 100%;
+  }
+  .search-form input {
+    flex: 1;
+    min-width: 200px;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .invoice-table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .invoice-table table {
+    margin-bottom: 0;
+  }
+  .invoice-table thead {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+  }
+  .invoice-table tbody tr:hover {
+    background-color: #f0f3f7;
+    cursor: pointer;
+  }
+  .badge-status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge-status.pendente, .badge-pendente {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  .badge-status.concluido, .badge-pago {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  .badge-aguardando {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  .page-title {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .alert {
+    border-radius: 10px;
+  }
+  .pagination .page-link {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .pagination .page-link:hover {
+    color: white;
+    background-color: var(--primary);
+    border-color: var(--primary);
+  }
+  .pagination .page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    font-weight: 600;
+  }
+  .search-info {
+    background: white;
+    border-left: 4px solid var(--primary);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .invoice-group {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .invoice-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .invoice-header h4 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .invoice-details-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  .detail-item {
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    border-left: 3px solid var(--primary);
+  }
+  .detail-item strong {
+    color: #666;
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .detail-item span {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .ativacoes-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  .ativacoes-table thead {
+    background-color: #f0f3f7;
+    border-bottom: 2px solid var(--primary);
+  }
+  .ativacoes-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary);
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+  .ativacoes-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .ativacoes-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  .btn-group-action {
+    display: flex;
+    gap: 10px;
+  }
+  .back-button {
+    margin-bottom: 20px;
+  }
+  @media print {
+    .sidebar, .top-bar, .back-button, .btn-group-action, .btn-close {
+      display: none !important;
+    }
+    .main-content {
+      padding: 0;
+    }
+    .invoice-group {
+      page-break-inside: avoid;
+      box-shadow: none;
+      border: 1px solid #ddd;
+    }
+    .print-keep {
+      page-break-after: avoid;
+      page-break-inside: avoid;
+    }
+  }
+  @media (max-width: 767px) {
+    .sidebar {
+      min-height: auto;
+      padding: 10px 10px 20px 10px;
+      position: static;
+    }
+    .main-content {
+      padding: 10px;
+    }
+    .top-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .search-form {
+      max-width: 100%;
+    }
+    .invoice-details-row {
+      grid-template-columns: 1fr !important;
+      gap: 8px;
+    }
+    .invoice-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+    }
+    .btn-group-action {
+      width: 100%;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .ativacoes-table, .ativacoes-table thead, .ativacoes-table tbody, .ativacoes-table th, .ativacoes-table td, .ativacoes-table tr {
+      display: block;
+      width: 100%;
+    }
+    .ativacoes-table thead {
+      display: none;
+    }
+    .ativacoes-table tr {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      background: #f8f9fa;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      border: 1px solid #e9ecef;
+      padding: 8px 0;
+    }
+    .ativacoes-table td {
+      border: none;
+      padding: 8px 12px;
+      position: relative;
+      text-align: left;
+    }
+    .ativacoes-table td:before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: var(--primary);
+      display: block;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+    .invoice-group {
+      padding: 10px;
+    }
+    .search-info {
+      font-size: 15px;
+      padding: 10px;
+    }
+    .back-button {
+      margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: 20px;
+    }
+  }
+</style>

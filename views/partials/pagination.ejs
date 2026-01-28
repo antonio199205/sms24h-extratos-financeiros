@@ -1,0 +1,29 @@
+<!-- Pagination Component -->
+<% if (data && data.pages > 1) { %>
+  <nav aria-label="Paginação">
+    <ul class="pagination justify-content-center mt-3">
+      <% const pageParam = (typeof filterDate !== 'undefined' && filterDate) ? `?filterDate=${filterDate}&page` : '?page'; %>
+      <% if (data.page > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="<%= baseUrl %><%= pageParam %>=1">Primeira</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="<%= baseUrl %><%= pageParam %>=<%= data.page - 1 %>">Anterior</a>
+        </li>
+      <% } %>
+      <% for (let i = Math.max(1, data.page - 2); i <= Math.min(data.pages, data.page + 2); i++) { %>
+        <li class="page-item <%= (i === data.page) ? 'active' : '' %>">
+          <a class="page-link" href="<%= baseUrl %><%= pageParam %>=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+      <% if (data.page < data.pages) { %>
+        <li class="page-item">
+          <a class="page-link" href="<%= baseUrl %><%= pageParam %>=<%= data.page + 1 %>">Próxima</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" href="<%= baseUrl %><%= pageParam %>=<%= data.pages %>">Última</a>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+<% } %>

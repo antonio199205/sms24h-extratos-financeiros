@@ -1,0 +1,17 @@
+<!-- Sidebar Component -->
+<div class="col-md-3 col-lg-2 sidebar d-none d-md-block">
+  <div class="brand">
+    <i class="fas fa-dollar-sign"></i> Financeiro
+  </div>
+  <nav class="nav flex-column">
+    <a href="/" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'dashboard') ? 'active' : '' %>">
+      <i class="fas fa-home"></i> Dashboard
+    </a>
+    <a href="/relatorio-numero" class="nav-link <%= (typeof activeMenu !== 'undefined' && activeMenu === 'relatorio-numero') ? 'active' : '' %>">
+      <i class="fas fa-phone"></i> Relatório por Número
+    </a>
+    <a href="/logout" class="nav-link mt-auto">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+  </nav>
+</div>

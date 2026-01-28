@@ -1,0 +1,17 @@
+<!-- Header Component - Top Bar com Search -->
+<div class="top-bar">
+  <div class="search-form">
+    <form method="GET" action="/search" class="d-flex gap-3 w-100">
+      <input type="text" class="form-control" name="searchTerm" id="searchTerm" placeholder="Extrato completo por CPF ou TX ID...">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </div>
+  <div class="user-info">
+    <div>
+      <small class="text-muted">Bem-vindo</small>
+      <div class="fw-bold"><%= user.nome %></div>
+    </div>
+  </div>
+</div>
