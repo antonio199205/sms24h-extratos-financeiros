@@ -6,8 +6,11 @@ const router = express.Router();
 
 // Rotas de invoices
 router.get('/', checkAuthenticated, invoiceController.dashboard);
-router.get('/search', invoiceController.search);
-// router.get('/search', checkAuthenticated, invoiceController.search);
+if(process.env.NODE_ENV === 'development'){
+    router.get('/search', invoiceController.search);
+} else {
+    router.get('/search', checkAuthenticated, invoiceController.search);
+}
 router.get('/invoice/:id', checkAuthenticated, invoiceController.invoiceDetails);
 
 module.exports = router;
