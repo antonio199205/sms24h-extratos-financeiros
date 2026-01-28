@@ -13,5 +13,6 @@ if(process.env.NODE_ENV === 'development'){
 }
 router.get('/invoice/:id', checkAuthenticated, invoiceController.invoiceDetails);
 router.get('/relatorio-numero', checkAuthenticated, invoiceController.relatorioNumero);
+router.get('/usuario', checkAuthenticated, invoiceController.usuarioDetalhes);
 
 module.exports = router;

@@ -59,7 +59,7 @@
                     <th>Nome do Usuário</th>
                     <th>CPF</th>
                     <th>Crédito</th>
-                    <th>WhatsApp</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -96,10 +96,12 @@
                       <td><%= activation.usuario.cpf || '-' %></td>
                       <td>R$ <%= activation.usuario.credito ? parseFloat(activation.usuario.credito).toFixed(2) : '0.00' %></td>
                       <td>
-                        <% if (activation.usuario.whatsapp_enabled === 1) { %>
-                          <span class="badge bg-success"><i class="fas fa-check"></i> Sim</span>
+                        <% if (activation.usuario.id) { %>
+                          <a href="/usuario?id=<%= activation.usuario.id %>" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-user"></i> Ver Usuário
+                          </a>
                         <% } else { %>
-                          <span class="badge bg-secondary"><i class="fas fa-times"></i> Não</span>
+                          <span class="text-muted">-</span>
                         <% } %>
                       </td>
                     </tr>

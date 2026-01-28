@@ -250,3 +250,36 @@ exports.relatorioNumero = async (req, res) => {
     res.redirect('/');
   }
 };
+
+exports.usuarioDetalhes = async (req, res) => {
+  try {
+    const { id, email, api_key, cpf } = req.query;
+    let usuario = null;
+    let busca = null;
+
+    if (id) {
+      usuario = await usuarioService.buscarUsuario('id', id);
+      busca = { tipo: 'ID', valor: id };
+    } else if (email) {
+      usuario = await usuarioService.buscarUsuario('email', email);
+      busca = { tipo: 'Email', valor: email };
+    } else if (api_key) {
+      usuario = await usuarioService.buscarUsuario('api_key', api_key);
+      busca = { tipo: 'API Key', valor: api_key };
+    } else if (cpf) {
+      usuario = await usuarioService.buscarUsuario('cpf', cpf);
+      busca = { tipo: 'CPF', valor: cpf };
+    }
+
+    res.render('usuario', {
+      user: req.user,
+      usuario: usuario,
+      busca: busca,
+      formatDate
+    });
+  } catch (error) {
+    console.error('Erro ao buscar usuário:', error);
+    req.flash('error_msg', 'Erro ao buscar usuário');
+    res.redirect('/');
+  }
+};

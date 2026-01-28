@@ -35,6 +35,28 @@ class UsuarioService {
       throw error;
     }
   }
+
+  async buscarUsuario(campo, valor) {
+    try {
+      let whereClause = {};
+      
+      if (campo === 'email') {
+        whereClause = { email: valor };
+      } else if (campo === 'api_key') {
+        whereClause = { api_key: valor };
+      } else if (campo === 'cpf') {
+        whereClause = { cpf: valor };
+      } else if (campo === 'id') {
+        whereClause = { id: parseInt(valor) };
+      }
+
+      const usuario = await UsuarioCoreDB.findOne({ where: whereClause });
+      return usuario;
+    } catch (error) {
+      console.error('Erro ao buscar usuario:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = new UsuarioService();
